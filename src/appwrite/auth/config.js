@@ -1,5 +1,5 @@
 import conf from "../../conf/conf";
-import { Client, Account, ID, Databases, Storage, Query } from "appwrite";
+import { Client, ID, Databases, Storage, Query } from "appwrite";
 
 export class DatabaseService {
   client = new Client();
@@ -86,7 +86,9 @@ export class DatabaseService {
         100,
         0
       );
-    } catch (error) {}
+    } catch (error) {
+      return error;
+    }
   }
 
   //file uplaod & delete services:
@@ -104,7 +106,7 @@ export class DatabaseService {
     }
   }
 
-  async deleteFie(fileId) {
+  async deleteFile(fileId) {
     try {
       await this.bucket.deleteFile(conf.appwriteBucketId, fileId);
       return true;
