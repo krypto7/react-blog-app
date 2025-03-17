@@ -8,8 +8,15 @@ import Input from "./Input";
 import Select from "./Select";
 import Login from "./Login";
 import RTE from "./RTE";
+import AddPost from "../pages/Addpost";
+import PostForm from "../components/post-form/PostForm";
+import PostCard from "./PostCard";
+import SignUp from "./SignUp";
+import AuthLayout from "./AuthLayout";
 
 export {
+  AuthLayout,
+  PostCard,
   Header,
   Footer,
   Container,
@@ -19,5 +26,8 @@ export {
   Input,
   Select,
   Login,
-  RTE
+  RTE,
+  SignUp,
+  AddPost,
+  PostForm,
 };

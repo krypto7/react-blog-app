@@ -1,6 +1,6 @@
 import React from "react";
-import appwriteService from "../appwrite/auth/config";
 import { Link } from "react-router-dom";
+import databaseService from "../appwrite/auth/config";
 
 function PostCard({ $id, title, featuredImage }) {
   return (
@@ -8,7 +8,7 @@ function PostCard({ $id, title, featuredImage }) {
       <div className="w-full bg-gray-100 rounded-xl p-4">
         <div className="w-full justify-center mb-4">
           <img
-            src={appwriteService.getFilePreview(featuredImage)}
+            src={databaseService.getFilePreview(featuredImage)}
             alt={title}
           />
         </div>

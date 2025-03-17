@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { login as authLogin } from "../reducers/AuthSlice";
 import authService from "../appwrite/auth/auth";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { Input, Button } from "./index";
+import { Input, Button, Logo } from "./index";
 
 function Login() {
   const navigate = useNavigate();
