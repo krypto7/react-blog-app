@@ -12,7 +12,8 @@ function SignUp() {
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
 
-  const signUp = async (data) => {
+  const create = async (data) => {
+    console.log("==>data", data);
     setError("");
     try {
       const userData = await authService.createAccount(data);
@@ -24,6 +25,7 @@ function SignUp() {
     } catch (error) {
       setError(error.message);
     }
+    return null;
   };
   return (
     <div className="flex items-center justify-center w-full">
@@ -49,42 +51,38 @@ function SignUp() {
         </p>
         {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
 
-        <form onSubmit={handleSubmit(signUp)} className="mt-8">
+        <form onSubmit={handleSubmit(create)}>
           <div className="space-y-5">
             <Input
-              label={"Full Name:"}
+              label="Full Name: "
               placeholder="Enter your full name"
-              type="text"
               {...register("name", {
                 required: true,
               })}
             />
-
             <Input
-              label={"email"}
+              label="Email: "
               placeholder="Enter your email"
               type="email"
               {...register("email", {
                 required: true,
                 validate: {
-                  matchPattern: (value) =>
+                  matchPatern: (value) =>
                     /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
                     "Email address must be a valid address",
                 },
               })}
             />
-
             <Input
-              label={"password"}
-              placeholder="Enter your email"
+              label="Password: "
               type="password"
+              placeholder="Enter your password"
               {...register("password", {
                 required: true,
               })}
             />
-
-            <Button type="submit" className={"w-full"}>
-              Sign Up
+            <Button type="submit" className="w-full">
+              Create Account
             </Button>
           </div>
         </form>

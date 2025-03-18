@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import "./App.css";
 import authService from "./appwrite/auth/auth";
 import { login, logout } from "./reducers/AuthSlice";
 import { Footer, Header } from "./components";

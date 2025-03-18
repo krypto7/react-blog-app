@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Button, Input, RTE } from "../index";
+import { Button, Input, RTE, Select } from "../index";
 import databaseService from "../../appwrite/auth/config";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -18,7 +18,7 @@ function PostForm({ post }) {
       },
     });
 
-  const userData = useSelector(state.auth.userData);
+  const userData = useSelector((state) => state.auth.userData);
 
   const submit = async (data) => {
     if (post) {
@@ -60,19 +60,17 @@ function PostForm({ post }) {
       return value
         .trim()
         .toLowerCase()
-        .replace(/^[a-zA-Z\d\s]+/g, "-")
+        .replace(/[^a-zA-Z\d\s]+/g, "-")
         .replace(/\s/g, "-");
     return "";
-  });
+  }, []);
 
   useEffect(() => {
     const subscription = watch((value, { name }) => {
       if (name === "title") {
-        setValue("slug", slugTransform(value), {
-          shouldValidate: true,
-        });
+        setValue("slug", slugTransform(value.title), { shouldValidate: true });
       }
-    }, []);
+    });
 
     return () => subscription.unsubscribe();
   }, [watch, slugTransform, setValue]);

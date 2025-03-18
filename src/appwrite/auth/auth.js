@@ -1,15 +1,7 @@
 import conf from "../../conf/conf";
 import { Client, Account, ID } from "appwrite";
 
-// const client = new Client()
-//   .setEndpoint("https://cloud.appwrite.io/v1") // Your API Endpoint
-//   .setProject("<PROJECT_ID>"); // Your project ID
-
-// const account = new Account();
-
-// const user = await account.create(ID.unique(), "email@example.com", "password");
-
-class AuthService {
+export class AuthService {
   client = new Client();
   account;
 
@@ -32,7 +24,7 @@ class AuthService {
         //call another method
         return this.login({ email, password });
       } else {
-        return;
+        return userAccount;
       }
     } catch (error) {
       throw error;
@@ -57,7 +49,11 @@ class AuthService {
   }
 
   async logOut() {
-    await this.account.deleteSessions("current");
+    try {
+      await this.account.deleteSessions();
+    } catch (error) {
+      console.log("Appwrite serive :: logout :: error", error);
+    }
   }
 }
 
