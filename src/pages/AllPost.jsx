@@ -5,8 +5,9 @@ import { Container, PostCard } from "../components";
 function AllPost() {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
-    databaseService.getPosts([]).then((posts) => setPosts(posts));
+    databaseService.getPosts([]).then((posts) => setPosts(posts?.documents));
   });
+
   return (
     <div className="py-8 w-full">
       <Container>

@@ -9,7 +9,7 @@ function Post() {
   const { slug } = useParams();
   const navigate = useNavigate();
 
-  const userData = useSelector((state) => state.auth.userData);
+  const userData = useSelector((state) => state.auth.userData.userData);
 
   const isAuthor = post && userData ? post.userId === userData.$id : false;
 

@@ -4,7 +4,7 @@ import { useId } from "react";
 function Select({ options = [], label, className = "", ...props }, ref) {
   const id = useId();
   return (
-    <form className="w-full">
+    <div className="w-full">
       {label && <label htmlFor={id} className=" "></label>}
       <select
         {...props}
@@ -18,7 +18,7 @@ function Select({ options = [], label, className = "", ...props }, ref) {
           </option>
         ))}
       </select>
-    </form>
+    </div>
   );
 }
 

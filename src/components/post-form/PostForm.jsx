@@ -6,24 +6,24 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 function PostForm({ post }) {
-  const navigate = useNavigate();
-
   const { register, handleSubmit, watch, setValue, control, getValues } =
     useForm({
       defaultValues: {
         title: post?.title || "",
-        slug: post?.slug || "",
+        slug: post?.$id || "",
         content: post?.content || "",
         status: post?.status || "active",
       },
     });
 
-  const userData = useSelector((state) => state.auth.userData);
+  const navigate = useNavigate();
+  const userData = useSelector((state) => state.auth.userData.userData);
 
   const submit = async (data) => {
     if (post) {
+      console.log("if");
       const file = data.image[0]
-        ? databaseService.uploadFile(data.image[0])
+        ? await databaseService.uploadFile(data.image[0])
         : null;
       if (file) {
         databaseService.deleteFile(post.featuredImage);
@@ -33,14 +33,11 @@ function PostForm({ post }) {
         featuredImage: file ? file.$id : undefined,
       });
       if (dbPost) {
-        navigate(`post/${dbPost.id}`);
+        navigate(`/post/${dbPost.id}`);
       }
     } else {
-      // const file = await databaseService.uploadFile(data.image[0]);
-      //we want to chechk again if the file is alredy there or not
-      const file = data.image[0]
-        ? databaseService.createPost(data.image[0])
-        : null;
+      console.log("else");
+      const file = await databaseService.uploadFile(data.image[0]);
       if (file) {
         const fileId = file.$id;
         data.featuredImage = fileId;
@@ -48,8 +45,10 @@ function PostForm({ post }) {
           ...data,
           userId: userData.$id,
         });
+        console.log("====>dbPost", dbPost);
+
         if (dbPost) {
-          navigate(`post/${dbPost.$id}`);
+          navigate(`/post/${dbPost.$id}`);
         }
       }
     }
