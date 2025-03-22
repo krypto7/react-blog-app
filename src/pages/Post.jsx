@@ -1,17 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Container } from "../components";
+import { Button, Container } from "../components";
+import parse from "html-react-parser";
 import databaseService from "../appwrite/auth/config";
 
 function Post() {
-  const [post, setPost] = useState([]);
+  const [post, setPost] = useState(null); // Change [] to null
   const { slug } = useParams();
   const navigate = useNavigate();
-
   const userData = useSelector((state) => state.auth.userData.userData);
 
   const isAuthor = post && userData ? post.userId === userData.$id : false;
+
+  useEffect(() => {
+    if (slug) {
+      databaseService.getPost(slug).then((post) => {
+        console.log("Fetched Post:", post); // Debugging
+        if (post) setPost(post);
+        else navigate("/");
+      });
+    } else navigate("/");
+  }, [slug, navigate]);
 
   const deletePost = () => {
     databaseService.deletePost(post.$id).then((status) => {
@@ -22,24 +32,19 @@ function Post() {
     });
   };
 
-  useEffect(() => {
-    if (slug) {
-      databaseService.getPost(slug).then((post) => {
-        if (post) setPost(post);
-        else navigate("/");
-      });
-    } else navigate("/");
-  }, [slug, navigate]);
-
   return post ? (
     <div className="py-8">
       <Container>
         <div className="w-full justify-center mb-4 relative border rounded-xl p-2">
-          <img
-            src={databaseService.getFilePreview(post.featuredImage)}
-            alt={post.title}
-            className="rounded-xl"
-          />
+          {post.featuredImage ? (
+            <img
+              src={databaseService.getFilePreview(post.featuredImage)}
+              alt={post.title}
+              className="rounded-xl"
+            />
+          ) : (
+            <p>No featured image available</p>
+          )}
           {isAuthor && (
             <div className="absolute right-6 top-6">
               <Link to={`edit-post/${post.$id}`}>

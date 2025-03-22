@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import databaseService from "../appwrite/auth/config";
 
 function PostCard({ $id, title, featuredImage }) {
+  console.log("====postCard", featuredImage);
+
   return (
     <Link to={`/post/${$id}`}>
       <div className="w-full bg-gray-100 rounded-xl p-4">

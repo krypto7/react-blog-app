@@ -38,6 +38,7 @@ function PostForm({ post }) {
     } else {
       console.log("else");
       const file = await databaseService.uploadFile(data.image[0]);
+      console.log("====>file", file);
       if (file) {
         const fileId = file.$id;
         data.featuredImage = fileId;
@@ -109,7 +110,7 @@ function PostForm({ post }) {
           accept="image/png, image/jpg, image/jpeg, image/gif"
           {...register("image", { required: !post })}
         />
-        {post && (
+        {post && post.featuredImage && (
           <div className="w-full mb-4">
             <img
               src={databaseService.getFilePreview(post.featuredImage)}

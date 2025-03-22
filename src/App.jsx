@@ -31,7 +31,7 @@ function App() {
           <Outlet />
         </main>
         <Footer />
-      </div>
+      </div>``
     </div>
   ) : null;
 }
