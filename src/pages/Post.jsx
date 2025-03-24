@@ -9,14 +9,14 @@ function Post() {
   const [post, setPost] = useState(null); // Change [] to null
   const { slug } = useParams();
   const navigate = useNavigate();
-  const userData = useSelector((state) => state.auth.userData.userData);
+  const userData = useSelector((state) => state.auth.userData);
 
-  const isAuthor = post && userData ? post.userId === userData.$id : false;
+  const isAuthor =
+    post && userData ? post.userId === userData.userData.$id : false;
 
   useEffect(() => {
     if (slug) {
       databaseService.getPost(slug).then((post) => {
-        console.log("Fetched Post:", post); // Debugging
         if (post) setPost(post);
         else navigate("/");
       });
@@ -47,7 +47,7 @@ function Post() {
           )}
           {isAuthor && (
             <div className="absolute right-6 top-6">
-              <Link to={`edit-post/${post.$id}`}>
+              <Link to={`/edit-post/${post.$id}`}>
                 <Button bgColor="bg-green-500" className="mr-3">
                   Edit
                 </Button>

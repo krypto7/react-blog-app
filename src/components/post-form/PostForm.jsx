@@ -21,7 +21,6 @@ function PostForm({ post }) {
 
   const submit = async (data) => {
     if (post) {
-      console.log("if");
       const file = data.image[0]
         ? await databaseService.uploadFile(data.image[0])
         : null;
@@ -36,9 +35,7 @@ function PostForm({ post }) {
         navigate(`/post/${dbPost.id}`);
       }
     } else {
-      console.log("else");
       const file = await databaseService.uploadFile(data.image[0]);
-      console.log("====>file", file);
       if (file) {
         const fileId = file.$id;
         data.featuredImage = fileId;
@@ -46,7 +43,6 @@ function PostForm({ post }) {
           ...data,
           userId: userData.$id,
         });
-        console.log("====>dbPost", dbPost);
 
         if (dbPost) {
           navigate(`/post/${dbPost.$id}`);

@@ -23,6 +23,10 @@ function App() {
       .finally(() => setLoading(false));
   }, []);
 
+  useEffect(() => {
+    document.documentElement.style.scrollBehavior = "smooth"; // Fallback for smooth scrolling
+  }, []);
+
   return !loading ? (
     <div className="min-h-screen flex flex-wrap content-between bg-gray-400">
       <div className="w-full block">
@@ -31,7 +35,7 @@ function App() {
           <Outlet />
         </main>
         <Footer />
-      </div>``
+      </div>
     </div>
   ) : null;
 }

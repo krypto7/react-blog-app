@@ -20,10 +20,11 @@ function EditPost() {
     }
   }, [slug, navigate]);
 
+
   return post ? (
     <div className="py-8">
       <Container>
-        <AddPost />
+        <AddPost post={post} />
       </Container>
     </div>
   ) : null;
